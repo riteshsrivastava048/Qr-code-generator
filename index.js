@@ -5,7 +5,7 @@ import bodyparser from "body-parser"
 import a from "qrcode";
 /* import fs from "fs"; */
 const app = express();
-const port  = 3000 ;
+const port = process.env.PORT || 3000;
 // Serve static files like CSS, JS, and images from 'public' folder
 
 
