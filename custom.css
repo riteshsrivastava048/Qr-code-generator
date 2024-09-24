@@ -1,0 +1,11 @@
+@font-face {  /*website from which font downloaded fontsforweb */
+    font-family: 'Algerian';
+    src: url('font_2/ALGER.woff') format('Web Open Font Format');
+  }
+  
+nav h1 {
+    font-family: 'Algerian', sans-serif;
+    font-size: 30px;
+    color:white ;
+  }
+  
