@@ -5,12 +5,11 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node":"20.x"
+    "node": "20.x"
   },
   "scripts": {
-  "start": "node index.js"
-},
-
+    "start": "node index.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -20,6 +19,7 @@
     "netlify-cli": "^17.36.2",
     "netlify-lambda": "^2.0.16",
     "qrcode": "^1.5.4",
-    "serverless-http": "^3.2.0"
+    "serverless-http": "^3.2.0",
+    "vercel": "^37.5.4"
   }
 }
