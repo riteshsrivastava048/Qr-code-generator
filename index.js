@@ -1,5 +1,5 @@
-import express from "express"
-import { dirname } from "path"
+ import express from "express"
+import path from "path"
 import { fileURLToPath } from "url"
 import bodyparser from "body-parser"
 import a from "qrcode";
@@ -11,7 +11,8 @@ const port = process.env.PORT || 3000;
 
 
 
-const _dirname = dirname(fileURLToPath(import.meta.url))
+const _dirname = path.dirname(fileURLToPath(import.meta.url))
+app.use(express.static(path.join(_dirname, 'public')))
 app.use(express.static("public")); // for css static files
 
 
@@ -29,20 +30,23 @@ function URLgetter(req,res,next){
 app.use(URLgetter)
 
 
-app.get("/",(req,res)=>{
-    res.sendFile(_dirname+"/index.html")
-})
+
 
 app.post("/submit",(req,res)=>{
-    // res.send(`<h1>${url}<h1>`)
+    const url = req.body.url
+    const filepath = path.join(_dirname,'public' ,'imagegenerated.png'); 
     res.sendFile(_dirname+"/index.html")
     console.log(url)
-    a.toFile("public/imagegenerated.png",url,(err)=>{
+    a.toFile(filepath,url,(err)=>{
         if(err) console.error(err)
         else{
         console.log("generated");
          }
     })
+})
+
+app.get("/",(req,res)=>{
+    res.sendFile(_dirname+"/index.html")
 })
 
 // let random = Math.random();
@@ -55,3 +59,43 @@ app.listen(port,()=>{
 
 
 
+/*
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import QRCode from 'qrcode';
+import { fileURLToPath } from 'url';
+
+// Setting up the Express server
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Determine the directory name
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware to parse the body
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Handle the form submission
+app.post('/submit', (req, res) => {
+    const url = req.body.url;
+    const filePath = path.join(__dirname, 'public', 'imagegenerated.png');
+
+    // Generate the QR code and save it in the 'public' folder
+    QRCode.toFile(filePath, url) => {
+            console.log('QR code generated successfully');
+            res.redirect('/');  // Redirect to homepage after submission
+        })
+
+// Serve the index.html file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+}); */
